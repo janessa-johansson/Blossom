@@ -1,0 +1,81 @@
+/* CSS for User Component only. */
+
+.card {
+    position: absolute;
+    top: 13%;
+    left: 36%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 35%;
+    background-color: white;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+
+
+  .center {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+
+.textlogin {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    color: #1d1e20;
+    padding: 5px;
+   
+}
+
+.texterror {
+	font-family: 'Lora', serif;
+	font-size: 17px;
+	color: #bb065a;
+	padding: 5px;
+ 
+}
+
+.btn {
+	background-color:#666666;
+	border-radius:4px;
+	border:1px solid rgba(41, 41, 41, 0.548);
+	display:inline-block;
+	color:#ffffff;
+	font-family: 'Lora', serif;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+.btn:disabled {
+	background-color:#aaa9a9;
+	border-radius:4px;
+	border:1px solid rgba(41, 41, 41, 0.548);
+	display:inline-block;
+	color:#777575;
+	font-family: 'Lora', serif;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+}
