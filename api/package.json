@@ -1,0 +1,28 @@
+{
+  "name": "restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/api/index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schoolecutbildning/Blossom.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.9",
+    "node-dotify": "^1.0.1",
+    "nodemon": "^1.19.0"
+  },
+  "bugs": {
+    "url": "https://github.com/schoolecutbildning/Blossom/issues"
+  },
+  "homepage": "https://github.com/schoolecutbildning/Blossom#readme"
+}
