@@ -43,12 +43,14 @@ const withStorage = WrappedComponent => {
 
     // Gets users from Softhouse API.
     getUsers() {
-      return axios.get('http://api.softhouse.rocks/users/');
+      // return axios.get('http://api.softhouse.rocks/users/');
+      return axios.get('http://localhost:3000/users/');
     }
 
     // Gets user's ID from Softhouse API.
     getUserId(id) {
-      return axios.get('http://api.softhouse.rocks/users/' + id);
+      // return axios.get('http://api.softhouse.rocks/users/' + id);
+      return axios.get('http://localhost:3000/users/' + id);
     }
 
     render() {

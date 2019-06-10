@@ -3,7 +3,7 @@ dotify = require('node-dotify');
 get = (req, res, next) => {
     var query;
     if (req.query.name) {
-        query = req.models.User.findOne({ "user.name": req.query.name })
+        query = req.models.User.findOne({ "username": req.query.name })
     }
     else {
         query = req.models.User.find()
@@ -16,15 +16,11 @@ get = (req, res, next) => {
 
 post = (req, res, next) => {
     req.models.User.create({
-        user: {
-            email: req.body.user.email,
-            name: req.body.user.name,
-            address: {
-                street: req.body.user.address.street,
-                zipcode: req.body.user.address.zipcode,
-                city: req.body.user.address.city,
-            }
-        }
+
+        name: req.body.name,
+        username: req.body.username,
+        password: req.body.password
+
     }).then((user) => {
         return res.status(201).send(user);
     }).catch((error) => {
@@ -39,7 +35,7 @@ getById = (req, res, next) => {
 }
 
 deleteById = (req, res, next) => {
-    req.models.User.findByIdAndDelete(req.params.id).then((deleted) => {
+    req.models.User.findOneAndDelete(req.params.id).then((deleted) => {
         if (deleted)
             return res.send(deleted).status(200);
         res.sendStatus(204);
@@ -47,31 +43,24 @@ deleteById = (req, res, next) => {
 }
 
 put = (req, res, next) => {
-    req.models.User.updateOne({ _id: req.params.id },
+    req.models.User.findOneAndUpdate({ _id: req.params.id },
         {
-            user: {
-                email: req.body.user.email,
-                name: req.body.user.name,
-                address: {
-                    street: req.body.user.address.street,
-                    zipcode: req.body.user.address.zipcode,
-                    city: req.body.user.address.city,
-                }
-            },
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password
+
         }, {
             new: true,
             upsert: true,
             runvalidators: true,
 
-        }).then((status) => {
-            console.log("status: ", status)
-            if (status.upserted)
-                res.status(201)
-            else if (status.nModified)
-                res.status(200)
-            else
-                res.status(204)
-            res.send()
+        }, (err, doc) => {
+            if (err) {
+                console.log("Unable to update.")
+            } else {
+                res.send(doc).status(200);
+            }
+            
         }).catch((error) => next(error))
 }
 
