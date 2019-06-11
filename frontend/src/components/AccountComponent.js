@@ -2,7 +2,6 @@
 import style from '../styles/Account.module.css';
 import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
 
 // Core functionality from react and axios.
 import React, { Component } from 'react';
@@ -42,8 +41,7 @@ class AccountComponent extends Component {
       id: 0,
       name: '',
       username: '',
-      email: '',
-      temperature: '',
+      password: '',
       // handling error 500 from Softhouse (duplicate key)
       caughtError: false
     };
@@ -73,58 +71,45 @@ class AccountComponent extends Component {
       this.props.history.push('/');
       return;
     }
+  
     this.setUserInformation(user);
-    this.props.getUserId(user.id).then(response => {
-      const data = response.data;
-      this.setUserInformation(data);
-    });
   }
 
   // Sets the user's information as the current state.
   setUserInformation(user) {
     this.setState({
-      id: user.id,
+      id: user._id,
       name: user.name,
       username: user.username,
-      password: user.email,
-      temperature: user.address.zipcode
+      password: user.password
     });
   }
-
+ 
   // Handles input edits when user clicks the 'confirm changes' button.
   editAccount = event => {
     event.preventDefault();
     const editUser = {
       name: this.state.name,
       username: this.state.username,
-      email: this.state.password,
-      address: {
-        street: 'mock street 12',
-        suite: 'online',
-        city: 'Stockholm',
-        zipcode: this.state.temperature,
-        geo: {
-          lat: 0,
-          lng: 0
-        }
-      }
+      password: this.state.password
     };
 
     // Sends the updated user to Softouse's API, then redirects user to the dashboard.
     axios
-      .put('http://api.softhouse.rocks/users/' + this.state.id, editUser)
+      .put('http://localhost:3000/users/' + this.state.id, editUser)
       .then(response => {
         this.props.addUser(response.data);
+        console.log(response)
         this.props.history.push('/dashboard');
       }).catch(error => {
-        if (error.response.data.code === 11000) {
+        if (error.response.status === 500) {
           this.setState({ caughtError: true });
         }
       })
   };
 
   render() {
-    const { name, username, temperature } = this.state;
+    const { name, username } = this.state;
     return (
       <div role="main">
         <h1 className={style.visuallyhidden}>The Weather - Your Account</h1>
@@ -142,7 +127,6 @@ class AccountComponent extends Component {
           <div>
             <div className={style.textlogin}>Name: {name} </div>
             <div className={style.textlogin}>Username: {username} </div>
-            <div className={style.textlogin}>Temperature: {temperature} </div>
           </div>
           <hr />
           {this.state.caughtError && <span className={style.texterror}>User already exists.</span>}
@@ -181,25 +165,6 @@ class AccountComponent extends Component {
               />
               <br />
               <br />
-
-              <label><span className={style.textlogin}>Choose temperature unit:</span>
-                <br />
-                <br />
-                <Select
-                  native
-                  id="temperature"
-                  inputprops={{ 'aria-label': 'Temperature Unit' }}
-                  aria-label="Temperature"
-                  value={temperature}
-                  onChange={this.handleInputChange('temperature')}
-                >
-
-                  <option value='C' inputprops={{ 'aria-label': 'Celcius' }} aria-label="Celcius" id="celcius">Celcius</option>
-                  <option value='F' inputprops={{ 'aria-label': 'Fahrenheit' }} aria-label="Fahrenheit" id="fahrenheit">Fahrenheit</option>
-                </Select>
-                <br />
-                <br />
-              </label>
 
               <button className={style.btn} type='submit'>Confirm Changes</button>
             </MuiThemeProvider>

@@ -2,7 +2,6 @@
 import style from '../styles/User.module.css';
 import TextField from '@material-ui/core/TextField';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
 
 // Core functionality from react and axios.
 import React, { Component } from 'react';
@@ -21,12 +20,11 @@ const theme = createMuiTheme({
 });
 
 //validates registration form
-function validateForm(name, username, password, temperature) {
+function validateForm(name, username, password) {
   return {
     name: name.length < 2,
     username: username === '',
-    password: password.length < 6,
-    temperature: temperature === ''
+    password: password.length < 6
   };
 }
 
@@ -52,14 +50,12 @@ class UserComponent extends Component {
       name: '',
       username: '',
       password: '',
-      temperature: 'C',
 
       //validation
       touched: {
         name: false,
         username: false,
-        password: false,
-        temperature: false
+        password: false
       },
 
       //used to compare userinformation.username & usernameLogin etc.
@@ -106,17 +102,7 @@ class UserComponent extends Component {
     const newUser = {
       name: this.state.name,
       username: this.state.username,
-      email: this.state.password,
-      address: {
-        street: 'mock street 12',
-        suite: 'mock',
-        city: 'Stockholm',
-        zipcode: this.state.temperature,
-        geo: {
-          lat: 0,
-          lng: 0
-        }
-      }
+      password: this.state.password
     };
 
     // Posts user information on user registration, and posts it to Softhouse's API using axios' options.
@@ -129,12 +115,12 @@ class UserComponent extends Component {
     };
 
     axios
-      .post('http://api.softhouse.rocks/users/', newUser, axiosConfig)
+      .post('http://localhost:3000/users/', newUser, axiosConfig)
       .then(response => {
         this.props.addUser(response.data);
         this.props.history.push('/dashboard');
       }).catch(error => {
-        if (error.response.data.code === 11000) {
+        if (error.response.status === 500) {
           this.setState({ caughtError: true });
         }
       })
@@ -165,7 +151,7 @@ class UserComponent extends Component {
     event.preventDefault();
     const user = this.state.userData.reduce((prev, user) => {
       return user.username === this.state.usernameLogin &&
-        user.email === this.state.passwordLogin
+        user.password === this.state.passwordLogin
         ? user
         : prev;
     }, undefined);
@@ -183,8 +169,7 @@ class UserComponent extends Component {
     const errors = validateForm(
       this.state.name,
       this.state.username,
-      this.state.password,
-      this.state.temperature
+      this.state.password
     );
 
     //disable button if errors keys (name, username, password etc.) includes an error
@@ -310,25 +295,6 @@ class UserComponent extends Component {
                   <div />
                 </div>
                 <br />
-                <label><span className={style.textlogin}>Choose temperature unit:</span>
-                  <br />
-                  <br />
-                  <Select
-                    native
-                    id="temperature"
-                    inputprops={{ 'aria-label': 'Temperature Unit' }}
-                    aria-label="Temperature"
-                    value={this.state.temperature}
-                    onChange={this.handleInputChange('temperature')}
-                  >
-
-                    <option value='C' inputprops={{ 'aria-label': 'Celcius' }} aria-label="Celcius" id="celcius">Celcius</option>
-                    <option value='F' inputprops={{ 'aria-label': 'Fahrenheit' }} aria-label="Fahrenheit" id="fahrenheit">Fahrenheit</option>
-                  </Select>
-                </label>
-                <br />
-                <br />
-
                 <button className={style.btn} disabled={isDisabled}>
                   Register
               </button>
