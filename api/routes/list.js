@@ -3,39 +3,43 @@ dotify = require('node-dotify');
 get = (req, res, next) => {
     var query;
     if (req.query.username) {
-        query = req.models.User.findOne({ username: req.query.username })
+        query = req.models.List.find({ username: req.query.username })
     }
     else {
-        query = req.models.User.find()
+        query = req.models.List.find()
     }
 
-    query.exec().then((user) => {
-        return res.send(user);
+    query.exec().then((list) => {
+        return res.send(list);
     }).catch((error) => next(error))
 }
 
 post = (req, res, next) => {
-    req.models.User.create({
+    req.models.List.create({
 
-        name: req.body.name,
         username: req.body.username,
-        password: req.body.password
+        list:
+        {
+            title: req.body.list.title,
+            item: req.body.list.item
+        }
 
-    }).then((user) => {
-        return res.status(201).send(user);
+
+    }).then((list) => {
+        return res.status(201).send(list);
     }).catch((error) => {
         next(error);
     })
 }
 
 getById = (req, res, next) => {
-    req.models.User.findById(req.params.id).then((user) => {
-        return res.send(user);
+    req.models.List.findById(req.params.id).then((list) => {
+        return res.send(list);
     }).catch((error) => next(error))
 }
 
 deleteById = (req, res, next) => {
-    req.models.User.findByIdAndDelete({ _id: req.params.id }).then((deleted) => {
+    req.models.List.findByIdAndDelete({ _id: req.params.id }).then((deleted) => {
         if (deleted)
             return res.send(deleted).status(200);
         res.sendStatus(204);
@@ -43,11 +47,14 @@ deleteById = (req, res, next) => {
 }
 
 put = (req, res, next) => {
-    req.models.User.findOneAndUpdate({ _id: req.params.id },
+    req.models.List.findOneAndUpdate({ _id: req.params.id },
         {
-            name: req.body.name,
             username: req.body.username,
-            password: req.body.password
+            list:
+            {
+                title: req.body.list.title,
+                item: req.body.list.item
+            }
 
         }, {
             new: true,
@@ -60,7 +67,7 @@ put = (req, res, next) => {
             } else {
                 res.send(doc).status(200);
             }
-            
+
         }).catch((error) => next(error))
 }
 
