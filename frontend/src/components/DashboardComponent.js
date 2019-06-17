@@ -309,6 +309,7 @@ class DashboardComponent extends Component {
                             </div>
                         }
                     </div> 
+                        {this.state.data[this.state.activeList] !== undefined &&
                         <InputGroup 
                             size="lg" 
                             className="mb-3" 
@@ -330,6 +331,7 @@ class DashboardComponent extends Component {
                                 >+</Button>
                             </InputGroup.Append>
                         </InputGroup>
+                    }
                     <ListGroup 
                         style={{
                             padding:'0 1%',

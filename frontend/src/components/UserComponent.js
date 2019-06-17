@@ -189,7 +189,7 @@ class UserComponent extends Component {
         <div className={style.card}>
         {this.state.showRegister ? 
             <div>
-              {!this.state.error && <span className={style.textlogin}>Please enter your desired login information.</span>}
+              {!this.state.error && <span className={style.text}>Please enter your desired login information.</span>}
               <form onSubmit={this.onRegistration}>
                 <div className={style.center} role="form">
                   <MuiThemeProvider theme={theme}>
@@ -251,7 +251,7 @@ class UserComponent extends Component {
            :
           <div>
             {this.state.error && <Alert variant={'danger'} className={style.texterror}>User credentials invalid.</Alert>}
-            {!this.state.error && <span className={style.textlogin}>Please login.</span>}
+            {!this.state.error && <span className={style.text}>Please login.</span>}
             <form onSubmit={this.loginUser}>
               <div className={style.center} >
                 <MuiThemeProvider theme={theme}>

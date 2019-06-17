@@ -19,6 +19,12 @@
     flex-flow: column;
     justify-content: center;
   }
+.text{
+  font-family: 'Lora', serif;
+    font-size: 17px;
+    color: #1d1e20;
+    padding: 5px;
+}
 
 .textlogin {
     font-family: 'Lora', serif;
@@ -26,6 +32,10 @@
     color: #1d1e20;
     padding: 5px;
    
+}
+.textlogin:hover{
+  color: #DE6262;
+  cursor: pointer;
 }
 
 .texterror {
