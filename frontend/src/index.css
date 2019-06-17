@@ -5,43 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* overflow: hidden; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.form-control{
-  border-color: #DE6262
-}
-.form-control:focus{
-  box-shadow: 0 0 0 0.2rem #e063635e;
-  border-color: #DE6262
-}
-.btn-primary:focus {
-  box-shadow: none !important;
-}
-.btn-primary:active {
-  box-shadow: 0 0 0 0.2rem #e063635e !important;
-  border-color: #DE6262
-}
-
-.btn-primary{
-  background-color:#FA7A6E;
-  border-color:#DE6262
-}
-.btn-primary:hover{
-  background-color:#DE6262;
-  border-color:#DE6262
-}
-.btn-primary:not(:disabled):not(.disabled):active{
-  background-color:#DE6262;
-  border-color:#DE6262
-}
-.alert-danger{
-  border-color:#DE6262;
-  text-align: center;
-}
-
