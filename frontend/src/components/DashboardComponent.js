@@ -332,7 +332,7 @@ class DashboardComponent extends Component {
                             </InputGroup.Append>
                         </InputGroup>
                     }
-                    <ListGroup 
+                    <ListGroup
                         style={{
                             padding:'0 1%',
                             overflowY: 'scroll', 

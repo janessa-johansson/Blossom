@@ -116,6 +116,11 @@ class NavbarComponent extends Component {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.handleClose}>
+                    <Link to='/dashboard' style={{ textDecoration: 'none', color: '#e16862'}}>
+                      Home
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
                     <Link to='/account' style={{ textDecoration: 'none', color: '#e16862'}}>
                       My Account
                     </Link>
@@ -126,6 +131,7 @@ class NavbarComponent extends Component {
                       this.logoutUser();
                     }}
                   >
+
                     <Link to='/login' style={{ textDecoration: 'none',  color: '#e16862' }}>
                       Logout
                     </Link>
