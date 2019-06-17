@@ -23,7 +23,7 @@ import withStorage from './../services/withStorage';
 
 const styles = {
   menuButton: {
-     marginLeft: '2150%',
+    //  marginLeft: '2150%',
   },
   icon:{
     fill:'#DE6262'
@@ -84,12 +84,13 @@ class NavbarComponent extends Component {
               background:
                 '#FFD3C9',
               height: 
-                '10vh'              
+                '10vh',
+              width:'100vw',
             }}
           >
-            <Toolbar>
+            <Toolbar style={{display:'flex', flexDirection:'row', justifyContent: 'space-between'}}>
               <h2 style={{marginTop:'.5rem', color: '#DE6262'}}>Just List It!</h2>
-              <div>
+              <div style={{align: 'right'}}>
                 <IconButton style={styles.button}
                   aria-label="Menu"
                   className={classes.menuButton}
