@@ -23,7 +23,10 @@ import withStorage from './../services/withStorage';
 
 const styles = {
   menuButton: {
-    marginLeft: 750
+     marginLeft: '2150%',
+  },
+  icon:{
+    fill:'#DE6262'
   }
 };
 
@@ -79,12 +82,15 @@ class NavbarComponent extends Component {
             color='primary'
             style={{
               background:
-                'linear-gradient(to bottom, rgba(54, 56, 58, 0.062) 0%,rgba(55, 57, 58, 0.315) 100%)'
+                '#FFD3C9',
+              height: 
+                '10vh'              
             }}
           >
             <Toolbar>
+              <h2 style={{marginTop:'.5rem', color: '#DE6262'}}>Just List It!</h2>
               <div>
-                <IconButton
+                <IconButton style={styles.button}
                   aria-label="Menu"
                   className={classes.menuButton}
                   aria-owns={open ? 'menu-appbar' : undefined}
@@ -92,7 +98,7 @@ class NavbarComponent extends Component {
                   onClick={this.handleMenu}
                   color='inherit'
                 >
-                  <AccountCircle />
+                <AccountCircle style={styles.icon}/>
                 </IconButton>
                 <Menu
                   id='menu-appbar'
@@ -109,13 +115,8 @@ class NavbarComponent extends Component {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.handleClose}>
-                    <Link to='/account' style={{ textDecoration: 'none' }}>
+                    <Link to='/account' style={{ textDecoration: 'none', color: '#e16862'}}>
                       My Account
-                    </Link>
-                  </MenuItem>
-                  <MenuItem onClick={this.handleClose}>
-                    <Link to='/dashboard' style={{ textDecoration: 'none' }}>
-                      The Weather
                     </Link>
                   </MenuItem>
                   <MenuItem
@@ -124,7 +125,7 @@ class NavbarComponent extends Component {
                       this.logoutUser();
                     }}
                   >
-                    <Link to='/login' style={{ textDecoration: 'none' }}>
+                    <Link to='/login' style={{ textDecoration: 'none',  color: '#e16862' }}>
                       Logout
                     </Link>
                   </MenuItem>

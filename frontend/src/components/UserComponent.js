@@ -11,6 +11,8 @@ import PropTypes from "prop-types";
 // HOC imports.
 import withStorage from './../services/withStorage';
 
+import Alert from 'react-bootstrap/Alert'
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -196,7 +198,7 @@ class UserComponent extends Component {
         <div className={style.card}>
           <div>
 
-            {this.state.error && <span className={style.texterror}>User credentials invalid.</span>}
+            {this.state.error && <Alert variant={'danger'} className={style.texterror}>User credentials invalid.</Alert>}
             {!this.state.error && <span className={style.textlogin}>Please login.</span>}
 
             <form onSubmit={this.loginUser}>
