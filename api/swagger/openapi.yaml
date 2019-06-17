@@ -1,0 +1,330 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Just List It! API
+  description: |
+  
+    The purpose for this API is to be able to document/easily test our API for both user accounts and lists.
+     
+  license:
+    name: MIT
+servers:
+- url: http://localhost:3000
+paths:
+  /lists:
+    get:
+      summary: List lists
+      operationId: listLists
+      tags:
+        - lists
+      responses:
+        '200':
+          description: Array of lists
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseLists"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a List
+      operationId: createList
+      tags:
+      - lists
+      requestBody:
+        description: the list to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/List'
+      responses:
+        '201':
+          description: The created list
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponsePost"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /lists/{listId}:
+    get:
+      summary: Get a List
+      operationId: getPost
+      tags:
+        - lists
+      parameters:
+      - name: listId
+        in: path
+        description: listId
+        required: true
+        schema:
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: The found post
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseLists"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Replace a List
+      operationId: putList
+      tags:
+      - lists
+      parameters:
+      - name: listId
+        in: path
+        description: list id
+        required: true
+        schema:
+          type: string
+          format: guid
+      requestBody:
+        description: the list to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/List'
+      responses:
+        '200':
+          description: The replaced list
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseLists"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a List
+      operationId: deleteList
+      tags:
+        - lists
+      parameters:
+      - name: listId
+        in: path
+        description: list id
+        required: true
+        schema:
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: The deleted list
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseLists"
+        '204':
+          description: No change (nothing was deleted)
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      tags:
+        - users
+      responses:
+        '200':
+          description: Array of users
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseUsers"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a User
+      operationId: createUser
+      tags:
+      - users
+      requestBody:
+        description: the user to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: The created user
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseUser"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{userId}:
+    get:
+      summary: get a user
+      operationId: getUser
+      tags:
+      - users
+      parameters:
+      - name: userId
+        in: path
+        description: user by uuid
+        required: true
+        schema:
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: the user
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseUser"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Replace a User
+      operationId: putUser
+      tags:
+      - users
+      parameters:
+      - name: userId
+        in: path
+        description: guid
+        required: true
+        schema:
+          type: string
+          format: guid
+      requestBody:
+        description: the post to replace
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: The replaced user
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseUser"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+        summary: Delete a user
+        operationId: deleteUser
+        tags:
+          - users
+        parameters:
+        - name: userId
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: string
+            format: guid
+        responses:
+          '200':
+            description: The deleted list
+            content:
+              application/json:    
+                schema:
+                  $ref: "#/components/schemas/ResponseUser"
+          '204':
+            description: No change (nothing was deleted)
+          default:
+            description: unexpected error
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    List:
+      type: object
+      properties:
+        username:
+          type: string
+        list:
+          properties:
+            title:
+              type: string
+            item:
+              type: string
+    ResponsePost:
+      allOf:
+      - $ref: "#/components/schemas/List"
+      - properties:
+          _id:
+            type: string
+            format: uuid
+    ResponseLists:
+      type: array
+      items:
+        $ref: "#/components/schemas/ResponseLists"
+    User:
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+    ResponseUser:
+      allOf:
+      - $ref: "#/components/schemas/User"
+      - properties:
+          _id:
+            type: string
+            format: uuid
+    ResponseUsers:
+      type: array
+      items:
+        $ref: "#/components/schemas/ResponseUser"
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
