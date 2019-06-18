@@ -186,65 +186,11 @@ class UserComponent extends Component {
 
     return (
       <div role="main">
-        <h1 className={style.visuallyhidden}>The Weather</h1>
-        <div className="icon center thunder-storm">
-          <div className="cloud"></div>
-          <div className="cloud"></div>
-          <div className="lightning">
-            <div className="bolt"></div>
-            <div className="bolt"></div>
-          </div>
-        </div>
         <div className={style.card}>
-          <div>
-
-            {this.state.error && <Alert variant={'danger'} className={style.texterror}>User credentials invalid.</Alert>}
-            {!this.state.error && <span className={style.textlogin}>Please login.</span>}
-
-            <form onSubmit={this.loginUser}>
-              <div className={style.center} >
-                <MuiThemeProvider theme={theme}>
-                  <div className={style.center} role="form">
-                    <TextField
-                      margin='normal'
-                      id='Login Username'
-                      label='Username'
-                      variant='outlined'
-                      type='text'
-                      value={this.state.usernameLogin}
-                      onChange={this.handleInputChange('usernameLogin')}
-                    />
-                  </div>
-                  <div className={style.center}>
-                    <TextField
-                      margin='normal'
-                      id='Login Password'
-                      label='Password'
-                      variant='outlined'
-                      type='password'
-                      value={this.state.passwordLogin}
-                      onChange={this.handleInputChange('passwordLogin')}
-                    />
-                  </div>
-                </MuiThemeProvider>
-                <div />
-              </div>
-
-              <br />
-              <button className={style.btn}>Login</button>
-            </form>
-            <br />
-            <hr />
-            <div onClick={this.showForm} className={style.textlogin}>
-              Don't have an account? Click here!
-          </div>
-            <hr />
-          </div>
-
-          {this.state.showRegister ? (
+        {this.state.showRegister ? 
             <div>
+              {!this.state.error && <span className={style.text}>Please enter your desired login information.</span>}
               <form onSubmit={this.onRegistration}>
-
                 <div className={style.center} role="form">
                   <MuiThemeProvider theme={theme}>
                     <div className={style.center}>
@@ -302,7 +248,51 @@ class UserComponent extends Component {
               </button>
               </form>
             </div>
-          ) : null}
+           :
+          <div>
+            {this.state.error && <Alert variant={'danger'} className={style.texterror}>User credentials invalid.</Alert>}
+            {!this.state.error && <span className={style.text}>Please login.</span>}
+            <form onSubmit={this.loginUser}>
+              <div className={style.center} >
+                <MuiThemeProvider theme={theme}>
+                  <div className={style.center} role="form">
+                    <TextField
+                      margin='normal'
+                      id='Login Username'
+                      label='Username'
+                      variant='outlined'
+                      type='text'
+                      value={this.state.usernameLogin}
+                      onChange={this.handleInputChange('usernameLogin')}
+                    />
+                  </div>
+                  <div className={style.center}>
+                    <TextField
+                      margin='normal'
+                      id='Login Password'
+                      label='Password'
+                      variant='outlined'
+                      type='password'
+                      value={this.state.passwordLogin}
+                      onChange={this.handleInputChange('passwordLogin')}
+                    />
+                  </div>
+                </MuiThemeProvider>
+                <div />
+              </div>
+
+              <br />
+              <button className={style.btn}>Login</button>
+            </form>
+            <br />
+            <hr />
+            <div onClick={this.showForm} className={style.textlogin}>
+              Don't have an account? Click here!
+          </div>
+            <hr />
+          </div>
+
+          }
         </div>
       </div>
     );

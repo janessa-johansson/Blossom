@@ -62,7 +62,7 @@ class AccountComponent extends Component {
   componentDidMount() {
 
     // Title for UX/Accessability 
-    document.title = `The Weather - Your Account`;
+    document.title = `Your Account`;
 
     // If a user who is not logged in tries to access the dashboard, they are redirected
     // to the login page.
@@ -112,18 +112,8 @@ class AccountComponent extends Component {
     const { name, username } = this.state;
     return (
       <div role="main">
-        <h1 className={style.visuallyhidden}>The Weather - Your Account</h1>
-        <div className="icon center flurries">
-          <div className="cloud"></div>
-          <div className="cloud"></div>
-          <div className="snow">
-            <div className="flake"></div>
-            <div className="flake"></div>
-          </div>
-        </div>
         <div className={style.card}>
-          <div className={style.textaccount}>My Account</div>
-          <hr />
+          <div style={{color:'#DE6262', display:'flex', justifyContent:'center'}}><h4>My Account</h4></div>
           <div>
             <div className={style.textlogin}>Name: {name} </div>
             <div className={style.textlogin}>Username: {username} </div>
@@ -142,7 +132,6 @@ class AccountComponent extends Component {
                 onChange={this.handleInputChange('name')}
               />
               <br />
-
               <TextField
                 margin='normal'
                 id="username"
@@ -164,8 +153,6 @@ class AccountComponent extends Component {
                 onChange={this.handleInputChange('password')}
               />
               <br />
-              <br />
-
               <button className={style.btn} type='submit'>Confirm Changes</button>
             </MuiThemeProvider>
           </form>
